@@ -42,7 +42,7 @@
     "memory": {
         "interval": 5,
         "format": " {}%",
-        "tooltip": true,
+	"tooltip-format": "Used: {used} GiB\nFree: {avail} GiB"
     },
     "temperature": {
         "critical-threshold": 80,
@@ -53,11 +53,11 @@
             "",
             ""
         ],
+	"tooltip-format": "CPU temp: {temperatureC}°C"
     },
     "disk": {
         "format": " {percentage_used}%",
-        "tooltip": true,
-        "on-click": "kitty sh -c 'btop'",
+	"tooltip-format": "Used: {used}\nFree: {free}"
     },
     "hyprland/window": {
         "format": "{}",
@@ -71,15 +71,15 @@
         "format-disconnected": "{icon} No Internet",
         "format-linked": "{ifname} (No IP)",
 
-        "tooltip-format": " ipv4: {ipaddr}/{cidr}  {gwaddr}  {ifname}",
-        "tooltip-format-wifi": "{icon} {essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "{icon} {ipaddr}/{cidr}",
-        "tooltip-format-disconnected": "{icon} Disconnected",
+        "tooltip-format": " ipv4: {ipaddr}/{cidr}\n {gwaddr}\n {ifname}",
+        "tooltip-format-wifi": "{icon}{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{icon}{ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "{icon}Disconnected",
         "on-click-right": "kitty sh -c nmtui-connect",
         "format-icons": {
-            "ethernet": "",
-            "disconnected": "",
-            "wifi": "",
+            "ethernet": " ",
+            "disconnected": " ",
+            "wifi": " ",
         },
         "interval": 5
     },
@@ -102,11 +102,14 @@
                 ""
             ]
         },
+        "tooltip-format": "  {volume}%\n {format_source}",
         "on-click": "flatpak run com.saivert.pwvucontrol"
     },
     "backlight": {
         "format": "{icon} {percent}%",
 	"format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "Brightness : {percent}%",
+
         "on-scroll-up": "brightnessctl s +1%",
         "on-scroll-down": "brightnessctl s 1%-",
     },
@@ -120,7 +123,9 @@
         "format-charging": " {capacity}%",
         "format-plugged": " {capacity}%",
         "format-alt": "{icon} {time}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": " Battery empty in: {time}",
+
     },
     "clock": {
         "timezone": "America/Bogota",
