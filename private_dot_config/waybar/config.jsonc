@@ -1,0 +1,136 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+
+    "spacing": 0, // Gaps between modules (0px) Adjusted in the css
+
+    "margin-top": 4,
+    "margin-left": 3,
+    "margin-right": 3,
+    "margin-bottom": 0,
+
+    "modules-left": [
+        "cpu",
+        "memory",
+        "temperature",
+        "disk"
+    ],
+    "modules-center": [
+        "hyprland/workspaces",
+    ],
+    "modules-right": [
+        "network",
+        "battery",
+        "backlight",
+	"pulseaudio",
+        "clock",
+        "custom/power"
+    ],
+    "hyprland/workspaces": {
+        "format": "",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        },
+        "on-click": "activate"
+    },
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": true,
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {}%",
+        "tooltip": true,
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format-critical": "{icon} {temperatureC}°C",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
+    },
+    "disk": {
+        "format": " {percentage_used}%",
+        "tooltip": true,
+        "on-click": "kitty sh -c 'btop'",
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true,
+        "max-length": 35
+    },
+    "network": {
+        "format": " {bandwidthTotalBytes}",
+        "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}",
+
+        "format-disconnected": "{icon} No Internet",
+        "format-linked": "{ifname} (No IP)",
+
+        "tooltip-format": " ipv4: {ipaddr}/{cidr}  {gwaddr}  {ifname}",
+        "tooltip-format-wifi": "{icon} {essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{icon} {ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "{icon} Disconnected",
+        "on-click-right": "kitty sh -c nmtui-connect",
+        "format-icons": {
+            "ethernet": "",
+            "disconnected": "",
+            "wifi": "",
+        },
+        "interval": 5
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "",
+        "format-muted": "",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": " ",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "flatpak run com.saivert.pwvucontrol"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+	"format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl s +1%",
+        "on-scroll-down": "brightnessctl s 1%-",
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "clock": {
+        "timezone": "America/Bogota",
+        "format": " {:%r}",
+        "format-alt": " {:%A %B %d %Y  %r}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "interval": 5
+    },
+    "custom/power": {
+        "format" : "⏻",
+        "on-click": "rofi -show p -modi p:rofi-power-menu"
+    }
+}
