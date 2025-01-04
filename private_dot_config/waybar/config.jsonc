@@ -10,10 +10,10 @@
     "margin-bottom": 0,
 
     "modules-left": [
-        "cpu",
+        "disk",
         "memory",
         "temperature",
-        "disk"
+        "cpu",
     ],
     "modules-center": [
         "hyprland/workspaces",
@@ -23,6 +23,7 @@
         "battery",
         "backlight",
 	"pulseaudio",
+	"hyprland/language",
         "clock",
         "custom/power"
     ],
@@ -33,6 +34,11 @@
             "default": ""
         },
         "on-click": "activate"
+    },
+    "hyprland/language": {
+	"format": "  {}",
+	"format-en": "EN", 
+	"format-es": "ES",
     },
     "cpu": {
         "interval": 5,
@@ -48,11 +54,7 @@
         "critical-threshold": 80,
         "format-critical": "{icon} {temperatureC}°C",
         "format": "{icon} {temperatureC}°C",
-        "format-icons": [
-            "",
-            "",
-            ""
-        ],
+        "format-icons": ["", "", ""],
 	"tooltip-format": "CPU temp: {temperatureC}°C"
     },
     "disk": {
@@ -68,7 +70,7 @@
         "format": " {bandwidthTotalBytes}",
         "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}",
 
-        "format-disconnected": "{icon} No Internet",
+        "format-disconnected": "{icon}No Internet",
         "format-linked": "{ifname} (No IP)",
 
         "tooltip-format": " ipv4: {ipaddr}/{cidr}\n {gwaddr}\n {ifname}",
@@ -84,7 +86,7 @@
         "interval": 5
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}  {volume}%",
         "format-bluetooth": "{icon} {volume}%",
         "format-bluetooth-muted": "",
         "format-muted": "",
@@ -96,13 +98,9 @@
             "phone": "",
             "portable": "",
             "car": " ",
-            "default": [
-                "",
-                "",
-                ""
-            ]
+            "default": ["", "", ""]
         },
-        "tooltip-format": "  {volume}%\n {format_source}",
+        "tooltip-format": "{icon}  {volume}%\n {format_source}",
         "on-click": "flatpak run com.saivert.pwvucontrol"
     },
     "backlight": {
@@ -128,11 +126,29 @@
 
     },
     "clock": {
+        "interval": 5,
         "timezone": "America/Bogota",
         "format": " {:%r}",
         "format-alt": " {:%A %B %d %Y  %r}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "interval": 5
+        "tooltip-format": "<big>{:%Y}</big>\n\n<tt><small>{calendar}</small></tt>",
+	"locale"	: "en_GB.UTF-8",
+	"calendar": {
+		"mode"          : "year",
+		"mode-mon-col"  : 3,
+		"on-scroll"     : 1,
+		"format": {
+			"months":     "<span color='#ffead3'><b>{}</b></span>",
+			"days":       "<span color='#ecc6d9'><b>{}</b></span>",
+			"weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+			"weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+			"today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	},
+	"actions": {
+		"on-click-right": "gnome-calendar",
+		"on-scroll-up": "shift_up",
+		"on-scroll-down": "shift_down"
+	}
     },
     "custom/power": {
         "format" : "⏻",
