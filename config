@@ -1,0 +1,87 @@
+# Monitor configuration
+exec --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144 --scale 1x1 --rotate normal
+
+# Start Waybar
+exec_always --no-startup-id ~/.config/waybar/launch_waybar
+
+# Start Wallpaper Manager
+exec --no-startup-id ~/.config/hypr/wallpaper_cycle.sh
+
+# Clipboard History
+exec_always --no-startup-id rm "$HOME/.cache/cliphist/db"
+exec_always --no-startup-id wl-paste --type text --watch cliphist store
+exec_always --no-startup-id wl-paste --type image --watch cliphist store
+
+# Application shortcuts
+set $term kitty
+set $browser flatpak run app.zen_browser.zen
+set $editor flatpak run dev.zed.Zed ~/Desktop
+set $jupyter flatpak run com.visualstudio.code ~/Desktop
+set $explorer nautilus ~/Desktop
+set $music flatpak run com.spotify.Client
+set $discord flatpak run com.discordapp.Discord
+
+# Rofi launchers
+set $launcher rofi -show drun -theme launchpad -show combi -icon-theme "Papirus" -show-icons
+set $launcher_alt rofi -show run
+set $launcher_ssh rofi -show ssh
+set $power rofi -show p -modi p:rofi-power-menu
+
+# General gaps and borders
+gaps inner 2
+gaps outer 4
+for_window [class=".*"] border pixel 2
+
+# Keyboard and input
+exec --no-startup-id setxkbmap -layout "us,latam" -option grp:win_space_toggle
+exec --no-startup-id xinput --set-prop "touchpad" "libinput Natural Scrolling Enabled" 1
+exec --no-startup-id xinput --set-prop "touchpad" "libinput Tapping Enabled" 1
+
+# Rofi bindings
+bindsym $mod+w exec $launcher
+bindsym $mod+Shift+w exec $launcher_ssh
+bindsym $mod+Alt+w exec $launcher_alt
+bindsym $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy && xdotool key ctrl+shift+v
+
+# Screenshot bindings
+bindsym Print exec grim -g "$(slurp)" - | wl-copy && wl-paste > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+bindsym $mod+Print exec grim - | wl-copy && wl-paste > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+
+# Volume controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Media controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
+
+# Brightness controls
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+# Window management
+bindsym $mod+Return exec $term
+bindsym $mod+q kill
+bindsym $mod+Shift+f fullscreen
+bindsym $mod+Shift+space floating toggle
+
+# Workspace management
+set $ws1 1
+set $ws2 2
+set $ws3 3
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+
+# Move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+
+# Logout and exit
+bindsym $mod+Shift+e exec --no-startup-id $power
+bindsym $mod+Escape exec --no-startup-id i3-msg exit
+
