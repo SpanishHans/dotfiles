@@ -1,0 +1,14 @@
+[init]
+    defaultBranch = main
+[user]
+    name = SpanishHans
+    email = juanj.martinezg96@gmail.com
+[core]
+    editor = nano
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    cm = commit
+[color]
+    ui = auto

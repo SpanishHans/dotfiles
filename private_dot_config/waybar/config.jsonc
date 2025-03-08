@@ -1,0 +1,159 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+
+    "spacing": 0, // Gaps between modules (0px) Adjusted in the css
+
+    "margin-top": 4,
+    "margin-left": 3,
+    "margin-right": 3,
+    "margin-bottom": 0,
+
+    "modules-left": [
+        "disk",
+        "memory",
+        "temperature",
+        "cpu",
+    ],
+    "modules-center": [
+        "hyprland/workspaces",
+    ],
+    "modules-right": [
+        "network",
+        "battery",
+        "backlight",
+	"pulseaudio",
+	"hyprland/language",
+        "clock",
+        "custom/power"
+    ],
+    "hyprland/workspaces": {
+        "format": "",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        },
+        "on-click": "activate"
+    },
+    "hyprland/language": {
+	"format": "  {}",
+	"format-en": "EN", 
+	"format-es": "ES",
+    },
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": true,
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {}%",
+	"tooltip-format": "Used: {used} GiB\nFree: {avail} GiB"
+    },
+    "temperature": {
+        "interval": 5,
+        "critical-threshold": 80,
+        "format-critical": "{icon} {temperatureC}°C",
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", ""],
+	"tooltip-format": "CPU temp: {temperatureC}°C"
+    },
+    "disk": {
+        "format": " {percentage_used}%",
+	"tooltip-format": "Used: {used}\nFree: {free}"
+    },
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true,
+        "max-length": 35
+    },
+    "network": {
+        "format": " {bandwidthTotalBytes}",
+        "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}",
+
+        "format-disconnected": "{icon}No Internet",
+        "format-linked": "{ifname} (No IP)",
+
+        "tooltip-format": " ipv4: {ipaddr}/{cidr}\n {gwaddr}\n {ifname}",
+        "tooltip-format-wifi": "{icon}{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{icon}{ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "{icon}Disconnected",
+        "on-click-right": "kitty sh -c nmtui-connect",
+        "format-icons": {
+            "ethernet": " ",
+            "disconnected": " ",
+            "wifi": " ",
+        },
+        "interval": 5
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "",
+        "format-muted": "",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": " ",
+            "default": ["", "", ""]
+        },
+        "tooltip-format": "{icon}  {volume}%\n {format_source}",
+        "on-click": "sonusmix"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+	"format-icons": ["", "", "", "", "", "", "", "", ""],
+        "tooltip-format": "Brightness : {percent}%",
+
+        "on-scroll-up": "brightnessctl s +1%",
+        "on-scroll-down": "brightnessctl s 1%-",
+    },
+    "battery": {
+        "interval": 5,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": " Battery empty in: {time}",
+
+    },
+    "clock": {
+        "interval": 5,
+        "timezone": "America/Bogota",
+        "format": " {:%r}",
+        "format-alt": " {:%A %B %d %Y  %r}",
+        "tooltip-format": "<big>{:%Y}</big>\n\n<tt><small>{calendar}</small></tt>",
+	"locale"	: "en_GB.UTF-8",
+	"calendar": {
+		"mode"          : "year",
+		"mode-mon-col"  : 3,
+		"on-scroll"     : 1,
+		"format": {
+			"months":     "<span color='#ffead3'><b>{}</b></span>",
+			"days":       "<span color='#ecc6d9'><b>{}</b></span>",
+			"weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+			"weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+			"today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	},
+	"actions": {
+		"on-click-right": "gnome-calendar",
+		"on-scroll-up": "shift_up",
+		"on-scroll-down": "shift_down"
+	}
+    },
+    "custom/power": {
+        "format" : "⏻",
+        "on-click": "rofi -show p -modi p:rofi-power-menu"
+    }
+}
